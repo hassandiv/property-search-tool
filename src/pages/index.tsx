@@ -1,40 +1,41 @@
 import type { NextPage } from 'next'
 import { GetStaticProps, InferGetStaticPropsType } from 'next'
+import SearchForm from '../components/home/searchForm'
+import SelectedProperties from '../components/home/selectedProperties'
+import SearchResults from '../components/home/searchResults'
+import { fetchProperties, fetchPropertyDetails, getAvailablePropertyTypes } from './api/properties'
+import { PropertyType as IPropertyType } from '../provider/contextProvider'
 
-type IResponse = {
+type Response = {
+  //response: Response | undefined
   json(): Promise<any>
-  ok?: boolean | undefined
+  ok: boolean | undefined
   statusCode?: number | undefined
 }
 
-type IProperties = {
-  id: number
-  address: string
-  postcode: string
-  propertyType: string
-}[]
-
 export const getStaticProps: GetStaticProps = async (context) => {
 
-  const res: IResponse = await fetch(`http://localhost:3000/api/hello`)
-  const data: IProperties[] = await res.json()
+  const res: Response = await fetch(`http://localhost:3000/api/data`)
+  const data: IPropertyType[] = await res.json()
   const errorCode = res.ok ? 200 : res.statusCode
 
   return {
     props: {
-      data,
-      errorCode
+      data: data || [],
+      errorCode: errorCode || null
     }
   }
 }
 
-const Home: NextPage = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
+const Home: NextPage = ({ context, data, fetchProperties }: InferGetStaticPropsType<typeof getStaticProps>) => {
   
-  console.log('data', data)
+  // console.log('getAvailablePropertyTypes', getAvailablePropertyTypes.map(i => i.label))
   
   return (
-    <div>
-      <h1>Next 12</h1>
+    <div className="flex flex-col">
+      <SearchForm />
+      <SelectedProperties />
+      <SearchResults data={data} />
     </div>
   )
 }

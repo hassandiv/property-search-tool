@@ -13,9 +13,14 @@ const Layout: FC = ({ children }) => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Nav />
-            <main>
-                {children}
-            </main>
+            <div className="flex flex-row items-center justify-evenly">
+                <aside className="w-80">
+                    hello
+                </aside>
+                <main className="max-w-5xl w-full">
+                    {children}
+                </main>
+            </div>
             <Footer />
         </>
     )
