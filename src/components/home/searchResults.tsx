@@ -23,10 +23,10 @@ const SearchResults: FC<Props> = ({ data }) => {
     }
 
     //filtered propreties by category
-    const filteredPropreties = category === "" ?
+    const filteredPropreties = category === undefined ?
         data
         :
-        data.filter(property => property?.propertyType.includes(category))
+        data?.filter(property => property?.propertyType?.includes(category))
 
     return (
         <React.Fragment>

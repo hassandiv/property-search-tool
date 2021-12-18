@@ -4,28 +4,30 @@ export type PropertyType = {
     id: string
     address: string
     postcode: string
-    propertyType?: string
+    propertyType?: string | undefined
     numberOfRooms: number
     floorArea: number
 }
 
-export type CategoryType = {
-    category: string
-}
+// type CategoryType = {
+//     category: string
+//     setCategory: () => null
+// }
 
-export type TermType = {
-    term: string
-}
+// type TermType = {
+//     term: string
+//     setTerm: () => void
+// }
 
 //we define our types here
 export type InitialStateType = {
     //data?: PropertyType[]
-    selected?: PropertyType[]
-    setSelected?: React.Dispatch<React.SetStateAction<PropertyType[]>>
-    category?: CategoryType
-    setCategory?: React.Dispatch<React.SetStateAction<CategoryType>>
-    term?: TermType
-    setTerm?: React.Dispatch<React.SetStateAction<TermType>>
+    selected: PropertyType[]
+    setSelected: React.Dispatch<React.SetStateAction<PropertyType[]>>
+    category: string
+    setCategory: React.Dispatch<React.SetStateAction<string>>
+    term: string
+    setTerm: React.Dispatch<React.SetStateAction<string>>
 }
 
 //we set our initial state and passed to AppContext, we can then pass boolean, number, array, string ...etc
@@ -37,7 +39,7 @@ export type InitialStateType = {
 //     setFilter: () => null,
 // }
 
-export const initialState = {
+const initialState = {
     //data: [],
     selected: [],
     setSelected: () => null,
@@ -66,8 +68,8 @@ export const AppContext = createContext<InitialStateType>(initialState)
 export const AppProvider = ({ children }: any) => { //children remain any, because we don'y have specific type for it yet
 
     const [selected, setSelected] = useState<PropertyType[]>([])
-    const [category, setCategory] = useState<CategoryType>('')
-    const [term, setTerm] = useState<TermType>('')
+    const [category, setCategory] = useState('')
+    const [term, setTerm] = useState('')
 
     return (
         <AppContext.Provider

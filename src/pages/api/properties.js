@@ -115,7 +115,7 @@ const sampleProperties = [
  * @param {string} [options.propertyType]
  * @returns {Promise<{ properties: PropertiesListEntry[] }>}
  */
-async function fetchProperties({ address, propertyType }) {
+async function fetchProperties({ address, propertyType }) { //for search input
   await wait(randomInteger(500));
 
   if (typeof address !== 'string' || address.trim() === '') {
@@ -164,7 +164,7 @@ async function fetchProperties({ address, propertyType }) {
  * @param {string} propertyId
  * @returns {Promise<{ property: PropertyDetails }>}
  */
-async function fetchPropertyDetails(propertyId) {
+async function fetchPropertyDetails(propertyId) { //fetch all properties getStaticProps
   if (Math.random() > 0.99) {
     throw new Error('An unexpected error occurred');
   }
@@ -186,7 +186,7 @@ async function fetchPropertyDetails(propertyId) {
  *
  * @returns {Promise<{ propertyTypes: PropertyType[] }>}
  */
-async function getAvailablePropertyTypes() {
+async function getAvailablePropertyTypes() { //for filter property type radio
   await wait(randomInteger(500));
 
   return {

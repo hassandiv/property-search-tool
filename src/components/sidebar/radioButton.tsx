@@ -1,9 +1,9 @@
-import { FC, useContext } from 'react'
+import { FC, useContext, useState, useEffect } from 'react'
 import { AppContext } from '../../provider/contextProvider'
 import { InitialStateType as IInitialStateType } from '../../provider/contextProvider'
-// import { fetchProperties, fetchPropertyDetails, propertyTypes } from '../../pages/api/data'
+//import { fetchProperties, fetchPropertyDetails, propertyTypes } from '../../pages/api/data'
 
-import propertyTypes from "../../pages/api/data"
+import {getAvailablePropertyTypes} from "../../pages/api/properties"
 
 export type ButtonType = {
     name: string
@@ -23,35 +23,41 @@ const RadioButton: FC<ButtonType> = ({ name, value, label }) => {
 
     //console.log('getAvailablePropertyTypes', propertyTypes.map(i => i.label))
 
-//      const [newData, setNewData] = useState([])
-//   //const [newData, setNewData] = useState([])
+    const [data, setData] = useState([])
 
-//   console.log('newData', newData)
+    console.log('data', data)
 
-//     useEffect( async () => {
-//       const response = getAvailablePropertyTypes()
-//       const data = await response
-//       const { propertyTypes } = data
-//       //console.log(propertyTypes);
-//       // .then(res => {
-//       //   if (res.status < 300) {
-//       setNewData(propertyTypes)
-//       //   }
-//       // })
-//     }, [])
+    const api = async () => {
+        const response = getAvailablePropertyTypes()
+        const data = await response
+        const { propertyTypes } = data
+        setData(propertyTypes)
+    }
+
+    useEffect(() => {
+        api()
+        //try {
+        //}
+        // catch {
+        // }
+    }, [])
     
     return (
-        <label>
-            <input
-                type="radio"
-                name={name}
-                value={value}
-                checked={category === value}
-                //className="appearance-none"
-                onChange={handleChange}
-            />
-                {label}
-        </label>
+        <>
+            {data?.map(type => 
+                <label>
+                    <input
+                        type="radio"
+                        name={type.value}
+                        value={type.value}
+                        checked={category === value}
+                        //className="appearance-none"
+                        onChange={handleChange}
+                    />
+                        {type.label}
+                </label>
+            )}
+        </>
     )
 }
 export default RadioButton

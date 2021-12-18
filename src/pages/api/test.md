@@ -5,7 +5,7 @@ attached design. The purpose of the page is to allow users to search for
 properties matching a given address search-string, and select some of the
 resulting records to appear in the "Selected properties" section at the top of
 the page.
-
+ 
 ## User journey
 
 - The user should be able to enter an address (or address fragment) in the
