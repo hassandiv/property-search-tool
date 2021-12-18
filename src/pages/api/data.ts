@@ -36,7 +36,7 @@ type IfetchProperties = {
 }[]
 
 export default function handler(
-  req: NextApiRequest,
+  //req: NextApiRequest,
   res: NextApiResponse<IfetchProperties>
 ) {
   res.status(200).json(

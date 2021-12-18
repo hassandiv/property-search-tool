@@ -3,7 +3,8 @@ import { GetStaticProps, InferGetStaticPropsType } from 'next'
 import SearchForm from '../components/home/searchForm'
 import SelectedProperties from '../components/home/selectedProperties'
 import SearchResults from '../components/home/searchResults'
-import { fetchProperties, fetchPropertyDetails, getAvailablePropertyTypes } from './api/properties'
+//import { fetchProperties, fetchPropertyDetails, getAvailablePropertyTypes } from './api/properties'
+import { fetchProperties, fetchPropertyDetails, getAvailablePropertyTypes } from './api/data'
 import { PropertyType as IPropertyType } from '../provider/contextProvider'
 
 type Response = {
@@ -28,9 +29,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 }
 
 const Home: NextPage = ({ context, data, fetchProperties }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  
-  // console.log('getAvailablePropertyTypes', getAvailablePropertyTypes.map(i => i.label))
-  
+    
   return (
     <div className="flex flex-col">
       <SearchForm />

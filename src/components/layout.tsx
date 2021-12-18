@@ -2,6 +2,7 @@ import type { FC } from 'react'
 import Nav from '../components/nav'
 import Footer from '../components/footer'
 import Head from 'next/head'
+import PropertyTypes from './sidebar/propertyTypes'
 
 const Layout: FC = ({ children }) => {
 
@@ -15,7 +16,7 @@ const Layout: FC = ({ children }) => {
             <Nav />
             <div className="flex flex-row items-center justify-evenly">
                 <aside className="w-80">
-                    hello
+                    <PropertyTypes />
                 </aside>
                 <main className="max-w-5xl w-full">
                     {children}

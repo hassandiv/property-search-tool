@@ -9,7 +9,7 @@ type Props = {
 
 const SearchResults: FC<Props> = ({ data }) => {
 
-    const { selected, setSelected } = useContext<IInitialStateType>(AppContext)
+    const { selected, setSelected, category, term } = useContext<IInitialStateType>(AppContext)
 
     const selectedProperties = [...selected]
     const handleOnChange = (property: IPropertyType): void => {
@@ -21,6 +21,12 @@ const SearchResults: FC<Props> = ({ data }) => {
         }
         setSelected(selectedProperties)
     }
+
+    //filtered propreties by category
+    const filteredPropreties = category === "" ?
+        data
+        :
+        data.filter(property => property?.propertyType.includes(category))
 
     return (
         <React.Fragment>
@@ -37,13 +43,15 @@ const SearchResults: FC<Props> = ({ data }) => {
                     </tr>
                 </thead>
                 <tbody className="bg-gray-100">
-                    {data?.map((property: IPropertyType) =>
+                    {filteredPropreties?.map((property: IPropertyType) =>
                         <tr key={property.id} className="w-full border-b border-black h-14 flex flex-row items-center justify-between px-10">
-                            <input
-                                type="checkbox"
-                                name="property"
-                                onChange={() => handleOnChange(property)}
-                            />
+                            <td>
+                                <input
+                                    type="checkbox"
+                                    name="property"
+                                    onChange={() => handleOnChange(property)}
+                                />
+                            </td>
                             <td>{property.address}</td>
                             <td>{property.postcode}</td>
                             <td>{property.propertyType}</td>
