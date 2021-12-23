@@ -10,6 +10,9 @@ npm install
 npm run dev
 ```
 
+Runs the app in the development mode.
+Open http://localhost:3000 to view it in the browser.
+
 ## How to test the app?
 
 Start by entering an address or (addres fragment) in the address search field, then press the "Search" button.
