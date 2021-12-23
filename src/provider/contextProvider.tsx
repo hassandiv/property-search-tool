@@ -1,85 +1,68 @@
 import { createContext, useState } from 'react'
 
-export type PropertyType = {
+export type PropertyDetails = {
     id: string
     address: string
     postcode: string
     propertyType?: string | undefined
-    numberOfRooms: number
-    floorArea: number
+    numberOfRooms?: number
+    floorArea?: number
+    checked?: boolean
 }
 
-// type CategoryType = {
-//     category: string
-//     setCategory: () => null
-// }
-
-// type TermType = {
-//     term: string
-//     setTerm: () => void
-// }
-
-//we define our types here
 export type InitialStateType = {
-    //data?: PropertyType[]
-    selected: PropertyType[]
-    setSelected: React.Dispatch<React.SetStateAction<PropertyType[]>>
-    category: string
-    setCategory: React.Dispatch<React.SetStateAction<string>>
-    term: string
-    setTerm: React.Dispatch<React.SetStateAction<string>>
+    properties: PropertyDetails[]
+    setProperties: React.Dispatch<React.SetStateAction<PropertyDetails[]>>
+    selectedProperties: PropertyDetails[]
+    setSelectedProperties: React.Dispatch<React.SetStateAction<PropertyDetails[]>>
+    propertyType: string
+    setPropertyType: React.Dispatch<React.SetStateAction<string>>
+    address: string
+    setAddress: React.Dispatch<React.SetStateAction<string>>
+    propertyId: string
+    setPropertyId: React.Dispatch<React.SetStateAction<string>>
 }
 
-//we set our initial state and passed to AppContext, we can then pass boolean, number, array, string ...etc
-// export const initialState = {
-//     //data: [],
-//     selected: [],
-//     setSelected: () => null,
-//     filter: '',
-//     setFilter: () => null,
-// }
+export type ChildrenType = {
+    children: React.ReactNode
+}
 
 const initialState = {
-    //data: [],
-    selected: [],
-    setSelected: () => null,
-    category: '',
-    setCategory: () => null,
-    term: '',
-    setTerm: () => null,
+    properties: [],
+    setProperties: () => null,
+    selectedProperties: [],
+    setSelectedProperties: () => null,
+    propertyType: '',
+    setPropertyType: () => null,
+    address: '',
+    setAddress: () => null,
+    propertyId: '',
+    setPropertyId: () => null,
 }
 
-// export const AppContext = createContext<ContextProps | null>(null)
-// export const AppContext = createContext<{
-//     selected?: PropertyType[]
-//     setSelected?: React.Dispatch<React.SetStateAction<PropertyType[]>>
-//     filter?: FilterType
-//     setFilter?: React.Dispatch<React.SetStateAction<any>>
-// }>({
-//     // selected: never[],
-//     // setSelected: () => null,
-//     // filter: '',
-//     // setFilter: () => null,
-// })
-
-//export const AppContext = createContext<InitialStateType>({}) // we use this one before
 export const AppContext = createContext<InitialStateType>(initialState)
 
-export const AppProvider = ({ children }: any) => { //children remain any, because we don'y have specific type for it yet
+export const AppProvider = ({ children }: ChildrenType) => {
 
-    const [selected, setSelected] = useState<PropertyType[]>([])
-    const [category, setCategory] = useState('')
-    const [term, setTerm] = useState('')
+    const [properties, setProperties] = useState<PropertyDetails[]>([])
+    const [selectedProperties, setSelectedProperties] = useState<PropertyDetails[]>([])
+    const [propertyId, setPropertyId] = useState('')
+    const [propertyType, setPropertyType] = useState('')
+    const [address, setAddress] = useState('')
 
     return (
         <AppContext.Provider
             value={{
-                selected,
-                setSelected,
-                category,
-                setCategory,
-                term,
-                setTerm
+                properties,
+                setProperties,
+                selectedProperties,
+                setSelectedProperties,
+                propertyType,
+                setPropertyType,
+                address,
+                setAddress,
+                propertyId,
+                setPropertyId
             }}
         >
             {children}

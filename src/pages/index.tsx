@@ -1,69 +1,60 @@
 import type { NextPage } from 'next'
-import { useState, useEffect } from 'react'
-import { GetStaticProps, InferGetStaticPropsType } from 'next'
+import { useEffect, useContext } from 'react'
+import { AppContext, InitialStateType as IInitialStateType, PropertyDetails as IPropertyDetails } from '../provider/contextProvider'
 import SearchForm from '../components/home/searchForm'
 import SelectedProperties from '../components/home/selectedProperties'
 import SearchResults from '../components/home/searchResults'
-import { fetchProperties, fetchPropertyDetails, getAvailablePropertyTypes } from './api/properties'
-//import { fetchProperties, fetchPropertyDetails, getAvailablePropertyTypes } from './api/data'
-import { PropertyType as IPropertyType } from '../provider/contextProvider'
+import { fetchProperties, fetchPropertyDetails } from './api/properties'
 
-// type Response = {
-//   //response: Response | undefined
-//   json(): Promise<any>
-//   ok: boolean | undefined
-//   statusCode?: number | undefined
-// }
-
-// export const getStaticProps: GetStaticProps = async (context) => {
-
-//   // const res: Response = await fetch(`http://localhost:3000/api/data`)
-//   // const data: IPropertyType[] = await res.json()
-//   // const errorCode = res.ok ? 200 : res.statusCode
-
-//   const response = fetchPropertyDetails()
-//   const data = await response
-//   const { property } = data
-//   //const errorCode = res.ok ? 200 : res.statusCode
-
-//   return {
-//     props: {
-//       data: data, //|| [],
-//       //errorCode: errorCode || null
-//     },
-//     //revalidate: 10
-//   }
-// }
-
-// const Home: NextPage = ({ context, data, fetchProperties }: InferGetStaticPropsType<typeof getStaticProps>) => {
 const Home: NextPage = () => {
 
+  const { setProperties, address, propertyType, selectedProperties } = useContext<IInitialStateType>(AppContext)
 
-  const [data, setData] = useState([])
+  useEffect(() => {
+    if (address) {
+      api()
+    }
+  }, [address, propertyType])
 
   const api = async () => {
     try {
-      const response = fetchPropertyDetails()
-      const data = await response
-      const { property } = data
-      setData(property)
-      console.log('property', property)
+      if (propertyType) { //get filtered properties
+        const response = fetchProperties({ address, propertyType })
+        const data = await response
+        const { properties } = data
+        await fullPropertyDetails(properties)
+      }
+      else { //get all properties
+        const response = fetchProperties({ address })
+        const data = await response
+        const { properties } = data
+        await fullPropertyDetails(properties)
+      }
     }
     catch (err) {
       console.log('err', err)
     }
   }
 
-  useEffect(() => {
-    api()
-  }, [])
+  const fullPropertyDetails = async (properties: IPropertyDetails[]) => {
+    const fullDetails = await Promise.all(properties.map( async (propertyDetail: IPropertyDetails) => {
+      const response = await fetchPropertyDetails(propertyDetail.id)
+      const details = await response
+      return setCheckedProperties(details.property, selectedProperties)
+    }))
+    setProperties(fullDetails)
+  }
 
-    
+  const setCheckedProperties = (property: IPropertyDetails, selectedProperties: IPropertyDetails[]) => {
+    let foundProperty = selectedProperties.find(selectedProperty => selectedProperty.id === property.id)
+    return foundProperty ? foundProperty : { ...property, checked: false }
+  }
+
   return (
-    <div className="flex flex-col">
+    <div className='flex flex-col'>
       <SearchForm />
       <SelectedProperties />
-      <SearchResults data={data} />
+      <SearchResults />
     </div>
   )
 }

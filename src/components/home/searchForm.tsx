@@ -1,26 +1,46 @@
-import { FC, InputHTMLAttributes, useContext } from 'react'
-import React from 'react'
-import { AppContext, InitialStateType as IInitialStateType } from '../../provider/contextProvider'
+import { FC, useContext, useState, useEffect } from 'react'
+import { InitialStateType as IInitialStateType, AppContext } from '../../provider/contextProvider'
 
 const SearchForm: FC = () => {
 
-    const { term, setTerm } = useContext<IInitialStateType>(AppContext)
+    const { setAddress } = useContext<IInitialStateType>(AppContext)
+    const [term, setTerm] = useState<string>('')
+
+    const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+        e.preventDefault()
+        setAddress(term)
+    }
 
     const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         setTerm(e.target.value)
     }
 
+    useEffect(() => {
+        if (term === '') {
+            setAddress('')
+        }
+    }, [term])
+
     return (
-        <React.Fragment>
-            <p>search form</p>
-            <input 
-                type="search"
-                name="search"
-                value={term}
-                className="bg-gray-100 border py-2"
-                onChange={handleOnChange}
-            />
-        </React.Fragment>
+        <form onSubmit={handleOnSubmit}>
+            <p className='text-xl pb-6 font-medium'>Search</p>
+            <div className='w-full flex justify-between'>
+                <input 
+                    type='search'
+                    name='search'
+                    value={term}
+                    placeholder='Search by address ...'
+                    className='bg-gray-white w-10/12 py-2 px-3 border-2 rounded outline-none shadow-inner'
+                    onChange={handleOnChange}
+                />
+                <button
+                    className='bg-yellow-300 w-36 py-2 border-2 border-yellow-400 rounded shadow-md'
+                    type='submit'
+                >
+                    Search
+                </button>
+            </div>
+        </form>
     )
 }
 export default SearchForm
