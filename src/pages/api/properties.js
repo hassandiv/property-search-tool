@@ -115,7 +115,7 @@ const sampleProperties = [
  * @param {string} [options.propertyType]
  * @returns {Promise<{ properties: PropertiesListEntry[] }>}
  */
-async function fetchProperties({ address, propertyType }) { //for all properties main data with filter and search options 
+async function fetchProperties({ address, propertyType }) {
   await wait(randomInteger(500));
 
   if (typeof address !== 'string' || address.trim() === '') {
@@ -135,7 +135,7 @@ async function fetchProperties({ address, propertyType }) { //for all properties
   }
 
   const propertiesFilteredByAddress = propertiesFilteredByType.filter((property) =>
-    property.address.toLowerCase().includes(address.toLowerCase()) //search input will further filter after filterbytype is selected
+    property.address.toLowerCase().includes(address.toLowerCase())
   );
 
   return {
@@ -164,7 +164,7 @@ async function fetchProperties({ address, propertyType }) { //for all properties
  * @param {string} propertyId
  * @returns {Promise<{ property: PropertyDetails }>}
  */
-async function fetchPropertyDetails(propertyId) { //could be used for selected Properties 
+async function fetchPropertyDetails(propertyId) {
   if (Math.random() > 0.99) {
     throw new Error('An unexpected error occurred');
   }

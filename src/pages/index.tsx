@@ -18,7 +18,7 @@ const Home: NextPage = () => {
 
   const api = async () => {
     try {
-      if (propertyType) { //get filtered properties
+      if (propertyType) { //get properties by type
         const response = fetchProperties({ address, propertyType })
         const data = await response
         const { properties } = data

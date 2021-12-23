@@ -21,7 +21,7 @@ const SearchResults: FC = () => {
                 <table className='custom-w-sr-mobile md:w-full'>
                     <thead className='bg-gray-300 h-10 text-center border-b-2 border-gray-400'>
                         <tr>
-                            <th>Check</th>
+                            <th><img className='h-3 w-auto mx-auto' src='./check.svg'/></th>
                             <th className='border-l-2 border-white w-44'>Address</th>
                             <th className='border-l-2 border-white'>Postcode</th>
                             <th className='border-l-2 border-white'>Property type</th>

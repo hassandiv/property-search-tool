@@ -12,7 +12,7 @@ const Layout: FC<IChildrenType> = ({ children }) => {
             <Head>
                 <title>Property Search Tool</title>
                 <meta name='description' content='IMMO Property Search Tool' />
-                <link rel='icon' href='/favicon.ico' />
+                <link rel='icon' href='/immo.ico' />
             </Head>
             <Nav />
             <div className='flex flex-col lg:flex-row items-center justify-evenly px-5'>

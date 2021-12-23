@@ -5,18 +5,19 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 First, run the development server:
 
 ```bash
+git clone git@github.com:hassandiv/property-search-tool.git
+npm install
 npm run dev
-# or
-yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## How to test the app?
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+Start by entering an address or (addres fragment) in the address search field, then press the "Search" button.
+It should display All of the property types that matches the address.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+You can further filter properties using the property types filter, it should update the search results table accordingly.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+To select a specific property, click on the checkbox and it should update the selected properties table. Uncheck the property to remove it from the selected properties table. You can navigate between property types while the selected properties are checked.
 
 # Frontend development challenge - TEST
 
