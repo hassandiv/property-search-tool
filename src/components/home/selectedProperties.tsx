@@ -1,11 +1,10 @@
 import React, { FC, useContext, useEffect} from 'react'
 import { PropertyDetails as IPropertyDetails, InitialStateType as IInitialStateType, AppContext } from '../../provider/contextProvider'
-import { fetchPropertyDetails } from '../../pages/api/properties'
 
 const SelectedProperties: FC = () => {
 
     const { properties, selectedProperties, setSelectedProperties, propertyId, setPropertyId } = useContext<IInitialStateType>(AppContext)
-    const newSelectedProperties = [...selectedProperties]
+    const modifySelectedProperties = [...selectedProperties]
 
     useEffect(() => {
         if (propertyId) {
@@ -16,13 +15,13 @@ const SelectedProperties: FC = () => {
     const toggleChecked = () => {
         const property = properties.find(property => property.id === propertyId)
         if(!property) return
-        const findIndex = newSelectedProperties.indexOf(property)
+        const findIndex = modifySelectedProperties.indexOf(property)
         if (findIndex > -1) {
-            newSelectedProperties?.splice(findIndex, 1)
+            modifySelectedProperties?.splice(findIndex, 1)
         } else {
-            newSelectedProperties?.push(property)
+            modifySelectedProperties?.push(property)
         }
-        setSelectedProperties(newSelectedProperties)
+        setSelectedProperties(modifySelectedProperties)
         setPropertyId('')
     }
 

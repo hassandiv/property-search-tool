@@ -24,17 +24,17 @@ const SearchForm: FC = () => {
     return (
         <form onSubmit={handleOnSubmit}>
             <p className='text-xl pb-6 font-medium'>Search</p>
-            <div className='w-full flex justify-between'>
+            <div className='w-full flex flex-col sm:flex-row'>
                 <input 
                     type='search'
                     name='search'
                     value={term}
                     placeholder='Search by address ...'
-                    className='bg-gray-white w-10/12 py-2 px-3 border-2 rounded outline-none shadow-inner'
+                    className='bg-gray-white w-full sm:w-10/12 py-2 px-3 border-2 mr-4 mb-5 sm:mb-0 rounded outline-none shadow-inner'
                     onChange={handleOnChange}
                 />
                 <button
-                    className='bg-yellow-300 w-36 py-2 border-2 border-yellow-400 rounded shadow-md'
+                    className='bg-yellow-300 w-full sm:w-36 py-2 border-2 border-yellow-400 rounded shadow-md'
                     type='submit'
                 >
                     Search
