@@ -46,9 +46,9 @@ export const AppProvider = ({ children }: ChildrenType) => {
 
     const [properties, setProperties] = useState<PropertyDetails[]>([])
     const [selectedProperties, setSelectedProperties] = useState<PropertyDetails[]>([])
-    const [propertyId, setPropertyId] = useState('')
-    const [propertyType, setPropertyType] = useState('')
-    const [address, setAddress] = useState('')
+    const [propertyId, setPropertyId] = useState<string>('')
+    const [propertyType, setPropertyType] = useState<string>('')
+    const [address, setAddress] = useState<string>('')
 
     return (
         <AppContext.Provider
